@@ -112,7 +112,8 @@ export async function seedDemoReceipts(): Promise<number> {
       await putReceipt(receipt);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      if (!message.includes("ConditionalCheckFailedException")) {
+      const name = typeof error === "object" && error !== null && "name" in error ? String(error.name) : "";
+      if (name !== "ConditionalCheckFailedException" && !message.includes("ConditionalCheckFailedException")) {
         throw error;
       }
     }

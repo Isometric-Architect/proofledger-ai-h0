@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
 PNG = ASSETS / "proofledger_dashboard_desktop.png"
+ARCH = ASSETS / "proofledger_architecture_diagram.png"
 MP4 = ASSETS / "proofledger_demo_rough_cut.mp4"
 
 
@@ -76,6 +77,49 @@ def draw_dashboard(path: Path) -> None:
     img.save(path)
 
 
+def draw_box(draw: ImageDraw.ImageDraw, xy: tuple[int, int, int, int], title_text: str, body_text: str, accent: str) -> None:
+    draw.rectangle(xy, fill="#ffffff", outline="#d9e2ec", width=2)
+    x1, y1, x2, y2 = xy
+    draw.rectangle((x1, y1, x1 + 8, y2), fill=accent)
+    draw.text((x1 + 24, y1 + 20), title_text, fill="#17202a", font=font(24))
+    draw.text((x1 + 24, y1 + 58), body_text, fill="#5b6b7f", font=font(16))
+
+
+def draw_arrow(draw: ImageDraw.ImageDraw, start: tuple[int, int], end: tuple[int, int]) -> None:
+    draw.line((start, end), fill="#64748b", width=4)
+    x, y = end
+    draw.polygon([(x, y), (x - 14, y - 8), (x - 14, y + 8)], fill="#64748b")
+
+
+def draw_architecture(path: Path) -> None:
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    img = Image.new("RGB", (1400, 900), "#f8fafc")
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, 1400, 130), fill="#17202a")
+    draw.text((54, 34), "ProofLedger AI architecture", fill="#ffffff", font=font(42))
+    draw.text((56, 88), "Vercel front end, Next.js API routes, and Amazon DynamoDB receipt memory.", fill="#cbd5e1", font=font(18))
+
+    draw_box(draw, (70, 210, 390, 340), "Reviewer", "Views HOLD, BLOCK, and\nHUMAN_REVIEW_ONLY queues.", "#2563eb")
+    draw_box(draw, (540, 170, 880, 300), "Vercel / Next.js UI", "Dashboard, subject timeline,\nand static review pages.", "#111827")
+    draw_box(draw, (540, 410, 880, 540), "Next.js API routes", "Health, seed-demo, status\nqueries, and subject lookup.", "#0f766e")
+    draw_box(draw, (1040, 300, 1320, 450), "Amazon DynamoDB", "ProofLedgerEvents table.\nPK, SK, GSI1, GSI2,\nreceiptHash, decision.", "#b45309")
+
+    draw_box(draw, (70, 560, 390, 700), "AI-agent recommendation", "Prepared decision packet:\nsubject, evidence, request,\nfindings, proposed action.", "#7c3aed")
+    draw_box(draw, (540, 640, 880, 780), "ProofLedger validator", "Returns HOLD, BLOCK, or\nHUMAN_REVIEW_ONLY.\nNo business action runs.", "#be123c")
+    draw_box(draw, (1040, 610, 1320, 760), "External systems", "Refunds, claims, account\nupdates, and production\nactions remain disabled.", "#64748b")
+
+    draw_arrow(draw, (390, 275), (540, 235))
+    draw_arrow(draw, (710, 300), (710, 410))
+    draw_arrow(draw, (880, 475), (1040, 375))
+    draw_arrow(draw, (390, 630), (540, 710))
+    draw_arrow(draw, (710, 640), (710, 540))
+    draw.line(((880, 710), (1040, 685)), fill="#be123c", width=4)
+    draw.line(((1040, 670), (880, 725)), fill="#be123c", width=4)
+
+    draw.text((70, 825), "Claim boundary: ProofLedger stores evidence receipts and opens human review only. It does not execute refunds, claims, records, or production actions.", fill="#475569", font=font(18))
+    img.save(path)
+
+
 def draw_slide(path: Path, title_text: str, body_text: str) -> None:
     img = Image.new("RGB", (1280, 720), "#f8fafc")
     draw = ImageDraw.Draw(img)
@@ -123,8 +167,10 @@ def draw_video() -> None:
 
 def main() -> int:
     draw_dashboard(PNG)
+    draw_architecture(ARCH)
     draw_video()
     print(PNG)
+    print(ARCH)
     print(MP4)
     return 0
 

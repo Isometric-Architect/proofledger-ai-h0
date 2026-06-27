@@ -1,0 +1,84 @@
+import type { AgentDecisionPacket } from "./types";
+
+export const demoPackets: AgentDecisionPacket[] = [
+  {
+    tenantId: "demo",
+    subjectId: "refund_case_1001",
+    caseKind: "refund_exception",
+    agentName: "RefundAgent",
+    recommendation: "Customer may be eligible for a high-value refund, but delivery proof is missing.",
+    requestedAction: "open_human_review",
+    amountCents: 125000,
+    currency: "USD",
+    evidence: [
+      { kind: "order_record", present: true, ref: "order_8831", publicSafe: true },
+      { kind: "payment_record", present: true, ref: "payment_2191", publicSafe: true },
+      { kind: "customer_statement", present: true, ref: "statement_102", publicSafe: true },
+      { kind: "delivery_status", present: false, publicSafe: true }
+    ],
+    policy: { autoActionCapCents: 5000, requiresHumanReviewAboveCents: 10000 },
+    externalActionEnabled: false,
+    redactionStatus: "PUBLIC_SAFE",
+    createdAt: "2026-06-27T09:00:00.000Z"
+  },
+  {
+    tenantId: "demo",
+    subjectId: "refund_case_1002",
+    caseKind: "refund_exception",
+    agentName: "RefundAgent",
+    recommendation: "Agent attempted to issue a high-value refund automatically.",
+    requestedAction: "issue_refund",
+    amountCents: 125000,
+    currency: "USD",
+    evidence: [
+      { kind: "order_record", present: true, ref: "order_8832", publicSafe: true },
+      { kind: "payment_record", present: true, ref: "payment_2192", publicSafe: true },
+      { kind: "customer_statement", present: true, ref: "statement_103", publicSafe: true },
+      { kind: "delivery_status", present: true, ref: "delivery_771", publicSafe: true }
+    ],
+    policy: { autoActionCapCents: 5000, requiresHumanReviewAboveCents: 10000 },
+    externalActionEnabled: true,
+    redactionStatus: "PUBLIC_SAFE",
+    createdAt: "2026-06-27T09:05:00.000Z"
+  },
+  {
+    tenantId: "demo",
+    subjectId: "refund_case_1003",
+    caseKind: "refund_exception",
+    agentName: "RefundAgent",
+    recommendation: "Packet is complete. A person should review the refund request.",
+    requestedAction: "open_human_review",
+    amountCents: 125000,
+    currency: "USD",
+    evidence: [
+      { kind: "order_record", present: true, ref: "order_8833", publicSafe: true },
+      { kind: "payment_record", present: true, ref: "payment_2193", publicSafe: true },
+      { kind: "customer_statement", present: true, ref: "statement_104", publicSafe: true },
+      { kind: "delivery_status", present: true, ref: "delivery_772", publicSafe: true }
+    ],
+    policy: { autoActionCapCents: 5000, requiresHumanReviewAboveCents: 10000 },
+    externalActionEnabled: false,
+    redactionStatus: "PUBLIC_SAFE",
+    createdAt: "2026-06-27T09:10:00.000Z"
+  },
+  {
+    tenantId: "demo",
+    subjectId: "claim_case_1004",
+    caseKind: "refund_exception",
+    agentName: "RefundAgent",
+    recommendation: "Receipt was reused for a different subject kind.",
+    requestedAction: "open_human_review",
+    amountCents: 125000,
+    currency: "USD",
+    evidence: [
+      { kind: "order_record", present: true, ref: "order_8834", publicSafe: true },
+      { kind: "payment_record", present: true, ref: "payment_2194", publicSafe: true },
+      { kind: "customer_statement", present: true, ref: "statement_105", publicSafe: true },
+      { kind: "delivery_status", present: true, ref: "delivery_773", publicSafe: true }
+    ],
+    policy: { autoActionCapCents: 5000, requiresHumanReviewAboveCents: 10000 },
+    externalActionEnabled: false,
+    redactionStatus: "PUBLIC_SAFE",
+    createdAt: "2026-06-27T09:15:00.000Z"
+  }
+];

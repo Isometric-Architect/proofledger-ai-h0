@@ -1,0 +1,9 @@
+flowchart LR
+  A[AI Agent Decision Packet] --> B[Vercel Next.js API]
+  B --> C[ProofLedger Validator]
+  C --> D[(AWS DynamoDB\nProofLedgerEvents)]
+  D --> E[Vercel Dashboard]
+  E --> F[Human Review]
+  C --> G[HOLD]
+  C --> H[BLOCK]
+  C --> I[HUMAN_REVIEW_ONLY]

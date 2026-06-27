@@ -1,0 +1,17 @@
+{
+  "project": "ProofLedger AI",
+  "artifact": "H0 submission candidate v0.2",
+  "local_audit": {
+    "secret_scan": "PASS",
+    "final_public_scan": "PASS",
+    "submission_audit": "PASS",
+    "static_demo_generated": true
+  },
+  "claim_ceiling": "Local public-safe package audit only. DynamoDB/Vercel deployment still required before Devpost submission.",
+  "blocked_claims": [
+    "production readiness",
+    "security certification",
+    "compliance certification",
+    "business-action authorization"
+  ]
+}

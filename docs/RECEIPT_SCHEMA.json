@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProofLedgerDecisionReceipt",
+  "type": "object",
+  "required": [
+    "tenantId",
+    "subjectId",
+    "decision",
+    "requestedAction",
+    "allowedAction",
+    "receiptHash",
+    "createdAt"
+  ],
+  "properties": {
+    "tenantId": {
+      "type": "string"
+    },
+    "subjectId": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "HOLD",
+        "BLOCK",
+        "HUMAN_REVIEW_ONLY"
+      ]
+    },
+    "requestedAction": {
+      "type": "string"
+    },
+    "allowedAction": {
+      "enum": [
+        "open_human_review",
+        "none"
+      ]
+    },
+    "receiptHash": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

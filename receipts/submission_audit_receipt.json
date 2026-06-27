@@ -1,0 +1,30 @@
+{
+  "project": "ProofLedger AI",
+  "generatedAt": "2026-06-27T06:57:46.947Z",
+  "requiredFilesPresent": true,
+  "missingRequiredFiles": [],
+  "secretScanPassed": true,
+  "secretHits": [],
+  "fileCount": 65,
+  "packageName": "proofledger-ai-h0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "create-table": "node scripts/create-table.mjs",
+    "seed": "node scripts/seed-demo.mjs",
+    "secret-scan": "node scripts/secret-scan.mjs .",
+    "verify-db": "node scripts/verify-dynamodb.mjs",
+    "audit": "node scripts/submission-audit.mjs",
+    "static-demo": "node scripts/static-demo.mjs"
+  },
+  "h0RequiredEvidenceStillNeeded": [
+    "Published Vercel project link",
+    "Vercel Team ID",
+    "AWS DynamoDB usage screenshot",
+    "less than 3-minute public demo video"
+  ],
+  "claimCeiling": "Hackathon prototype. No production, security, compliance, or business-action authorization claim."
+}
